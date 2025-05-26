@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhvqhk3kko3mv"]
+
+[ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_1tfmh"]
+[ext_resource type="PackedScene" uid="uid://cx58iu6thdb4j" path="res://Scenes/player.tscn" id="1_5hqby"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hdwta"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_0cu4j"]
+sky_material = SubResource("ProceduralSkyMaterial_hdwta")
+
+[sub_resource type="Environment" id="Environment_1erbr"]
+background_mode = 2
+sky = SubResource("Sky_0cu4j")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_cq61d"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_j1bb8"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_1tfmh")
+player_scene = ExtResource("1_5hqby")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1erbr")
+
+[node name="PlatformMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(15.7494, 0, 0, 0, 0.259086, 0, 0, 0, 16.0142, 0, 0, 0)
+mesh = SubResource("BoxMesh_cq61d")
+
+[node name="Platform" type="StaticBody3D" parent="PlatformMesh"]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformMesh/Platform"]
+shape = SubResource("ConcavePolygonShape3D_j1bb8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_left = 23.0
+offset_top = 447.0
+offset_right = 134.0
+offset_bottom = 525.0
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+offset_left = 21.0
+offset_top = 534.0
+offset_right = 134.0
+offset_bottom = 626.0
+text = "Join
+"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/player.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="button_up" from="CanvasLayer/Host" to="." method="_on_host_button_up"]
+[connection signal="button_up" from="CanvasLayer/Join" to="." method="_on_join_button_up"]
