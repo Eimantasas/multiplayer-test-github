@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/main_scene.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 mouse_click={
@@ -53,6 +57,7 @@ d={
 3d_physics/layer_1="Player"
 3d_physics/layer_2="Ground"
 3d_physics/layer_3="Projectile"
+3d_physics/layer_4="Target"
 
 [rendering]
 

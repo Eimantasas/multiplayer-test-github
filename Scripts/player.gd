@@ -6,7 +6,7 @@ const JUMP_VELOCITY = 4.5
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
-@onready var shoot_point: Marker3D = $Head/ShootPoint
+@onready var shoot_point: Marker3D = $Head/Camera3D/ShootPoint
 
 var bullet_scene = load("res://Scenes/bullet.tscn")
 
@@ -59,11 +59,6 @@ func shoot():
 	var projectile = bullet_scene.instantiate()
 	shoot_point.add_child(projectile)
 	projectile.global_transform = global_transform
-	projectile.top_level = true
-
-func take_damage(amount:int) -> void:
-	# If already dead, don't take more damage
-	pass
 
 
 func _unhandled_input(event):
