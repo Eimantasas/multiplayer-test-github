@@ -36,16 +36,16 @@ func _register_player(username: String):
 		insert_data_to_database(sender_id, 0)
 
 func _on_host_button_up() -> void:
-#	database = SQLite.new()
-#	database.path = "res://data.db"
-#	database.open_db()
-#	create_sql_table()
+	database = SQLite.new()
+	database.path = "res://data.db"
+	database.open_db()
+	create_sql_table()
 	peer = ENetMultiplayerPeer.new()
 	peer.create_server(port)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(add_player)
 	add_player()
-#	insert_data_to_database(peer.get_unique_id(), 42)
+	insert_data_to_database(peer.get_unique_id(), 42)
 	$CanvasLayer.hide()
 
 
@@ -53,8 +53,12 @@ func _on_join_button_up() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(IP_address, port)
 	multiplayer.multiplayer_peer = peer
-#	insert_data_to_database(peer.get_unique_id(), 200)
+	_insert_data.rpc(peer.get_unique_id(), 0)
 	$CanvasLayer.hide()
+
+@rpc("authority", "reliable")
+func _insert_data(id: int, score: int):
+	insert_data_to_database(id, score)
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
