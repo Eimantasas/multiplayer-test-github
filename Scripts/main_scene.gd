@@ -3,7 +3,7 @@ extends Node3D
 var peer
 @export var player_scene: PackedScene = load("res://Scenes/player.tscn")
 
-var IP_address: String = "127.0.0.1"
+var IP_address: String = "10.0.0.9"
 var port: int = 5555
 var database: SQLite
 
