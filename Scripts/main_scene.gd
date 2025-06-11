@@ -5,36 +5,42 @@ var peer
 
 var address: String = "172.31.1.76"
 var port: int = 5555
-#var database: SQLite
+var database: SQLite
 
-#func _ready() -> void:
-#	database = SQLite.new()
-#	database.path = "res://data.db"
-#	database.open_db()
-#	create_sql_table()
+func create_sql_table():
+	var table = {
+		"id" : {"data_type":"int", "primary_key":true, "not_null":true, "auto_increment":true},
+		"playerid": {"data_type":"int"},
+		"score": {"data_type":"int"}
+	}
+	database.create_table("players", table)
 
-#func create_sql_table():
-#	var table = {
-#		"id" : {"data_type":"int", "primary_key":true, "not_null":true, "auto_increment":true},
-#		"playerid": {"data_type":"int"},
-#		"score": {"data_type":"int"}
-#	}
-#	database.create_table("players", table)
-
-#func insert_data_to_database(playerid: int, score: int):
-#	var data = {
-#		"playerid": playerid,
-#		"score": score
-#		}
+func insert_data_to_database(playerid: int, score: int):
+	var data = {
+		"playerid": playerid,
+		"score": score
+		}
 	
-#	database.insert_row("players", data)
+	database.insert_row("players", data)
 
+func _on_host_button_up() -> void:
+	database = SQLite.new()
+	database.path = "res://data.db"
+	database.open_db()
+	create_sql_table()
+	peer = ENetMultiplayerPeer.new()
+	peer.create_server(port)
+	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(add_player)
+	add_player()
+	insert_data_to_database(peer.get_unique_id(), 42)
+	$CanvasLayer.hide()
 
 func _on_join_button_up() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(address, port)
 	multiplayer.multiplayer_peer = peer
-#	insert_data_to_database(peer.get_unique_id(), 200)
+	insert_data_to_database(peer.get_unique_id(), 200)
 	$CanvasLayer.hide()
 
 func exit_game(id):
