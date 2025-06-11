@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhvqhk3kko3mv"]
 
-[ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_1tfmh"]
+[ext_resource type="Script" uid="uid://b7pvummupsbio" path="res://Scripts/main_scene.gd" id="1_1tfmh"]
 [ext_resource type="PackedScene" uid="uid://cx58iu6thdb4j" path="res://Scenes/player.tscn" id="1_5hqby"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hdwta"]
@@ -25,11 +25,15 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 script = ExtResource("1_1tfmh")
 player_scene = ExtResource("1_5hqby")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0.0015097, 0.497731, 0.86733, -0.500001, 0.751506, -0.430393, 0, 17.0783, 0)
+shadow_enabled = true
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1erbr")
 
 [node name="PlatformMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(15.7494, 0, 0, 0, 0.259086, 0, 0, 0, 16.0142, 0, 0, 0)
+transform = Transform3D(49.171, 0, 0, 0, 0.809, 0, 0, 0, 50, 0, -0.55893, 0)
 mesh = SubResource("BoxMesh_cq61d")
 
 [node name="Platform" type="StaticBody3D" parent="PlatformMesh"]
@@ -57,7 +61,7 @@ text = "Join
 "
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Scenes/player.tscn")
+_spawnable_scenes = PackedStringArray("uid://cx58iu6thdb4j")
 spawn_path = NodePath("..")
 
 [connection signal="button_up" from="CanvasLayer/Host" to="." method="_on_host_button_up"]

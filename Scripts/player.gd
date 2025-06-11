@@ -6,9 +6,14 @@ const JUMP_VELOCITY = 4.5
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
+@onready var shoot_point: Marker3D = $Head/ShootPoint
+
+var bullet_scene = load("res://Scenes/bullet.tscn")
 
 #First person camera vars
 const SENSITIVITY: float = 0.001
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
 	camera.current = is_multiplayer_authority()
@@ -28,16 +33,19 @@ func _physics_process(delta: float) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 		if Input.is_action_just_pressed("quit"):
+			multiplayer.multiplayer_peer = null
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
 			
 		if Input.is_action_just_pressed("mouse_click"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+				shoot()
 
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
-		var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		var input_dir := Input.get_vector("a", "d", "w", "s")
+		var direction := (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if direction:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
@@ -47,13 +55,21 @@ func _physics_process(delta: float) -> void:
 
 		move_and_slide()
 
+func shoot():
+	var projectile = bullet_scene.instantiate()
+	shoot_point.add_child(projectile)
+	projectile.global_transform = global_transform
+	projectile.top_level = true
+
+func take_damage(amount:int) -> void:
+	# If already dead, don't take more damage
+	pass
+
 
 func _unhandled_input(event):
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-			head.rotate_y(-event.relative.x * SENSITIVITY)
-			camera.rotate_x(-event.relative.y * SENSITIVITY)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-
-func _enter_tree():
-	set_multiplayer_authority(name.to_int())
+	if is_multiplayer_authority():
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			if event is InputEventMouseMotion:
+				head.rotate_y(-event.relative.x * SENSITIVITY)
+				camera.rotate_x(-event.relative.y * SENSITIVITY)
+				camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cssn13ms2xrwe"]
+
+[ext_resource type="Script" uid="uid://cpunlkuhk6qkh" path="res://Scripts/bullet.gd" id="1_xjght"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xjght"]
+
+[node name="Bullet" type="RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, -0.00151841, -0.999999, 0, 0.999999, -0.00151841, 0, 0, 0)
+script = ExtResource("1_xjght")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_xjght")
+
+[node name="Timer" type="Timer" parent="."]
