@@ -9,7 +9,7 @@ var database: SQLite
 var is_host = false
 
 func _ready() -> void:
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.peer_connected.connect(_on_peer_connected)
 
 func create_sql_table():
 	var table = {
@@ -26,8 +26,8 @@ func insert_data_to_database(playerid: int, score: int):
 		}
 	database.insert_row("players", data)
 
-func _on_connected_to_server():
-	_register_player.rpc_id(1)
+func _on_peer_connected():
+	_insert_data.rpc(peer.get_unique_id(), 0)
 
 @rpc("any_peer", "call_remote", "reliable")
 func _register_player(username: String):

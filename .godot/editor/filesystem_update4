@@ -1,5 +1,5 @@
 res://Scenes/main_scene.tscn
-res://Scripts/main_scene.gd
 res://Scenes/bullet.tscn
 res://Scenes/player.tscn
 res://Scenes/target.tscn
+res://Scripts/main_scene.gd
