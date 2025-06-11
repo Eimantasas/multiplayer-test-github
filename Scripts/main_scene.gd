@@ -3,7 +3,7 @@ extends Node3D
 var peer
 @export var player_scene: PackedScene
 
-var address: String = "10.58.176.206"
+var address: String = "172.31.1.76"
 var port: int = 5555
 var database: SQLite
 
