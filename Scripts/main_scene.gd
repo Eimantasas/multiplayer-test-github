@@ -6,6 +6,10 @@ var peer
 var IP_address: String = "10.0.0.9"
 var port: int = 5555
 var database: SQLite
+var is_host = false
+
+func _ready() -> void:
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
 
 #func create_sql_table():
 #	var table = {
@@ -15,16 +19,21 @@ var database: SQLite
 #	}
 #	database.create_table("players", table)
 
-#func insert_data_to_database(playerid: int, score: int):
-#	var data = {
-#		"playerid": playerid,
-#		"score": score
-#		}
-	
-#	database.insert_row("players", data)
+func insert_data_to_database(playerid: int, score: int):
+	var data = {
+		"playerid": playerid,
+		"score": score
+		}
+	database.insert_row("players", data)
 
 func _on_connected_to_server():
-	pass
+	_register_player.rpc_id(1)
+
+@rpc("any_peer", "call_remote", "reliable")
+func _register_player(username: String):
+	if is_host:
+		var sender_id = multiplayer.get_remote_sender_id()
+		insert_data_to_database(sender_id, 0)
 
 func _on_host_button_up() -> void:
 #	database = SQLite.new()
