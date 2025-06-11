@@ -11,13 +11,13 @@ var is_host = false
 func _ready() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 
-#func create_sql_table():
-#	var table = {
-#		"id" : {"data_type":"int", "primary_key":true, "not_null":true, "auto_increment":true},
-#		"playerid": {"data_type":"int"},
-#		"score": {"data_type":"int"}
-#	}
-#	database.create_table("players", table)
+func create_sql_table():
+	var table = {
+		"id" : {"data_type":"int", "primary_key":true, "not_null":true, "auto_increment":true},
+		"playerid": {"data_type":"int"},
+		"score": {"data_type":"int"}
+	}
+	database.create_table("players", table)
 
 func insert_data_to_database(playerid: int, score: int):
 	var data = {
