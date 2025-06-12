@@ -4,7 +4,7 @@ A very simple 3D multiplayer tag game built with [Godot Engine](https://godoteng
 
 ---
 
-## 🎮 Features
+## Features
 
 - Basic 3D movement
 - Multiplayer support via Godot's high-level networking (RPC)
@@ -14,7 +14,7 @@ A very simple 3D multiplayer tag game built with [Godot Engine](https://godoteng
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Requirements
 
