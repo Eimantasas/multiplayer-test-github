@@ -3,11 +3,29 @@ extends Node3D
 var peer
 @export var player_scene: PackedScene = load("res://Scenes/player.tscn")
 
-var IP_address: String = "127.0.0.1"
+var IP_address: String = "172.31.1.76"
 var port: int = 5555
+var database: SQLite
+
+func create_sql_table():
+	var table = {
+		"id" : {"data_type":"int", "primary_key":true, "not_null":true, "auto_increment":true},
+		"playerid": {"data_type":"int"},
+		"username": {"data_type":"text"}
+	}
+	database.create_table("players", table)
+
+
+func insert_data_to_database(playerid: int, username: String):
+	var data = {
+		"playerid": playerid,
+		"username": username
+		}
+	database.insert_row("players", data)
 
 
 func _on_host_button_up() -> void:
+	
 	peer = ENetMultiplayerPeer.new()
 	peer.create_server(port)
 	multiplayer.multiplayer_peer = peer

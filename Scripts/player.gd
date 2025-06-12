@@ -7,7 +7,6 @@ const JUMP_VELOCITY = 4.5
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 
-var bullet_scene = load("res://Scenes/bullet.tscn")
 
 #First person camera variables
 const SENSITIVITY: float = 0.001
