@@ -9,6 +9,7 @@ A very simple 3D multiplayer tag game built with [Godot Engine](https://godoteng
 - Basic 3D movement
 - Multiplayer support via Godot's high-level networking (RPC)
 - Simple shoot mechanic
+- First Person
 - Minimal 3D environment (rectangles, planes)
 
 ---
@@ -26,3 +27,28 @@ A very simple 3D multiplayer tag game built with [Godot Engine](https://godoteng
    ```bash
    git clone https://github.com/your-username/simple-3d-tag-godot.git
    cd simple-3d-tag-godot
+
+### How to Play:
+## Controls:
+1. Movement (W, A, S, D)
+2. Shooting (LMB)
+
+## The Host
+
+1. Write your username
+2. Click on the button "host"
+3. Wait for more players
+
+## The Client
+
+1. Write your username
+2. Wait until the host starts hosting the game
+3. Join
+
+
+## All players:
+
+1. Find the red target and shoot it
+2. You get a point for shooting it, but it dissappears and then respawns
+3. Find where it spawned and shoot it before the others
+4. Have fun!
