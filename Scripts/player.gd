@@ -6,12 +6,13 @@ const JUMP_VELOCITY = 4.5
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
-@onready var shoot_point: Marker3D = $Head/Camera3D/ShootPoint
 
 var bullet_scene = load("res://Scenes/bullet.tscn")
 
-#First person camera vars
+#First person camera variables
 const SENSITIVITY: float = 0.001
+
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
@@ -39,11 +40,9 @@ func _physics_process(delta: float) -> void:
 			
 		if Input.is_action_just_pressed("mouse_click"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-				shoot()
+
 
 		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir := Input.get_vector("a", "d", "w", "s")
 		var direction := (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if direction:
@@ -55,10 +54,6 @@ func _physics_process(delta: float) -> void:
 
 		move_and_slide()
 
-func shoot():
-	var projectile = bullet_scene.instantiate()
-	shoot_point.add_child(projectile)
-	projectile.global_transform = global_transform
 
 
 func _unhandled_input(event):

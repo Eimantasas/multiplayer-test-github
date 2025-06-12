@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhvqhk3kko3mv"]
+[gd_scene load_steps=7 format=3 uid="uid://dhvqhk3kko3mv"]
 
 [ext_resource type="Script" uid="uid://b7pvummupsbio" path="res://Scripts/main_scene.gd" id="1_1tfmh"]
-[ext_resource type="PackedScene" uid="uid://b4mn8sqxl4o7c" path="res://Scenes/target.tscn" id="2_6l7je"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hdwta"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -62,9 +61,6 @@ text = "Join
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://cx58iu6thdb4j")
 spawn_path = NodePath("..")
-
-[node name="Target" parent="." instance=ExtResource("2_6l7je")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75887, 2.02273, 8.68919)
 
 [connection signal="button_up" from="CanvasLayer/Host" to="." method="_on_host_button_up"]
 [connection signal="button_up" from="CanvasLayer/Join" to="." method="_on_join_button_up"]
