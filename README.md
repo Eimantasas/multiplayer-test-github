@@ -28,7 +28,7 @@ A very simple 3D multiplayer tag game built with [Godot Engine](https://godoteng
    git clone https://github.com/your-username/simple-3d-tag-godot.git
    cd simple-3d-tag-godot
 
-### How to Play:
+# How to Play:
 ## Controls:
 1. Movement (W, A, S, D)
 2. Shooting (LMB)
