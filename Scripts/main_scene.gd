@@ -75,7 +75,6 @@ func _on_join_button_up() -> void:
 	peer.create_client(IP_address, port)
 	multiplayer.multiplayer_peer = peer
 	local_username = user_line.text.strip_edges()
-	_insert_data.rpc(peer.get_unique_id(), local_username)
 	print(local_username, " joined!")
 	$CanvasLayer.hide()
 
@@ -91,10 +90,6 @@ func _on_x_button_up() -> void:
 
 
 #player networking functions
-@rpc("authority", "call_remote", "reliable")
-func _insert_data(id: int, user: String):
-	insert_data_to_database(multiplayer.get_remote_sender_id(), user)
-
 func _on_connected_to_server():
 	_register_player.rpc_id(1, local_username)
 
