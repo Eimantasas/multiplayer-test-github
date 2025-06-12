@@ -52,3 +52,17 @@ A very simple 3D multiplayer tag game built with [Godot Engine](https://godoteng
 2. You get a point for shooting it, but it dissappears and then respawns
 3. Find where it spawned and shoot it before the others
 4. Have fun!
+
+
+#Technical Info:
+
+1. Multiplayer works by using the inbuilt godot multiplayer API
+2. RPC functions are used for clients and servers to communicate between one another
+
+##Host Logic
+
+1. The host is the one who clicks on "host" first
+
+##
+
+1. The host initializes a local database
