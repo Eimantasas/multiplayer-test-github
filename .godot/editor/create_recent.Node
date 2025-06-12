@@ -1,4 +1,8 @@
+TabBar
+TabContainer
+Panel
 Label
+Button
 LineEdit
 Node3D
 StaticBody3D
