@@ -10,7 +10,7 @@ var peer
 @onready var x_button: Button = $CanvasLayer/X
 
 #Networking vars
-var IP_address: String = "127.0.0.1"
+var IP_address: String = "172.31.1.76"
 var port: int = 5555
 var database: SQLite
 var is_host: bool = false
